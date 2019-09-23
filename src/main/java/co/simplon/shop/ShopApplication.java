@@ -28,7 +28,7 @@ public class ShopApplication implements CommandLineRunner {
 
 
 		categoryRepository.save(new Category(null,"Computers",null,null,null));
-		categoryRepository.save(new Category(null,"Printers",null,null,null));
+		categoryRepository.save(new Category(null,"Tablets",null,null,null));
 		categoryRepository.save(new Category(null,"Smart phones",null,null,null));
 		Random rnd=new Random();
 		categoryRepository.findAll().forEach(c->{
@@ -40,6 +40,7 @@ public class ShopApplication implements CommandLineRunner {
 				p.setPromotion(rnd.nextBoolean());
 				p.setSelected(rnd.nextBoolean());
 				p.setCategory(c);
+				p.setPhotoName("unknown.png");
 				productRepository.save(p);
 			}
 		});
