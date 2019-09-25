@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+
 
 import java.util.Random;
 
@@ -18,6 +20,8 @@ public class ShopApplication implements CommandLineRunner {
 	private ProductRepository productRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private RepositoryRestConfiguration repositoryRestConfiguration;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShopApplication.class, args);
@@ -25,7 +29,7 @@ public class ShopApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+        repositoryRestConfiguration.exposeIdsFor(Product.class, Category.class);
 
 		categoryRepository.save(new Category(null,"Computers",null,null,null));
 		categoryRepository.save(new Category(null,"Tablets",null,null,null));
@@ -40,7 +44,7 @@ public class ShopApplication implements CommandLineRunner {
 				p.setPromotion(rnd.nextBoolean());
 				p.setSelected(rnd.nextBoolean());
 				p.setCategory(c);
-				p.setPhotoName("unknown.png");
+				p.setPhotoName("sony.png");
 				productRepository.save(p);
 			}
 		});
